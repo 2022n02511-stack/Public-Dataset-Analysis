@@ -69,9 +69,14 @@ e_sales_analysis["order_date"] = pd.to_datetime(e_sales_analysis["order_date"])
 e_sales_analysis["customer_postal_code"] = e_sales_analysis["customer_postal_code"].astype("str")
 
 
+#fixing missing values
+
+e_sales_analysis["delivery_days"] = e_sales_analysis["delivery_days"].fillna(0.0)
+e_sales_analysis["customer_rating"] = e_sales_analysis["customer_rating"].fillna(0.0)
 
 
-print(stats.head())
-print(stats.dtypes)
+
+print(e_sales_analysis.isna().sum())
+# print(e_sales_analysis.dtypes)
 
 # print(e_sales_analysis.isna().sum())    

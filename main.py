@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib as mat
+import matplotlib.pyplot as plt
 
 # content = None
 
@@ -76,7 +77,52 @@ e_sales_analysis["customer_rating"] = e_sales_analysis["customer_rating"].fillna
 
 
 
-print(e_sales_analysis.isna().sum())
+# print(e_sales_analysis.isna().sum())
 # print(e_sales_analysis.dtypes)
 
-# print(e_sales_analysis.isna().sum())    
+# print(e_sales_analysis.isna().sum())   
+print("Shape: ", order.shape) 
+
+print("Net_sales Sum: ", order["net_sales"].sum())
+
+print("Profit Sum: ", order["profit"].sum())
+
+print("Order ID: ", order["order_id"].nunique())
+
+print("Customer ID: ", e_sales_analysis["customer_id"].nunique())
+
+print("Net Sales Mean", order["net_sales"].mean())
+
+e_sales_analysis["year"] = e_sales_analysis["order_date"].dt.year
+e_sales_analysis["months"] = e_sales_analysis["order_date"].dt.month
+
+yearly_sales = (e_sales_analysis.groupby("year")["net_sales"].sum())
+monthly_sales = (e_sales_analysis.groupby("months")["net_sales"].sum())
+
+yearly_profit = (e_sales_analysis.groupby("year")["profit"].sum())
+
+print("Yearly Sales: ")
+print(yearly_sales)
+print("Yearly Profit: ")
+print(yearly_profit)
+print("Monthly Sales: ")
+print(monthly_sales)
+
+print("Year over Year Growth: ")
+print(yearly_sales.pct_change() * 100)
+
+print("Profit Growth: ")
+print(yearly_profit.pct_change() * 100)
+
+plt.plot(yearly_sales)
+plt.xlabel("yearly_sales")
+plt.ylabel("net_sales")
+plt.title("Yearly Sales")
+plt.show()
+
+plt.plot(monthly_sales)
+plt.xlabel("monthly_sales")
+plt.ylabel("net_sales")
+plt.title("Monthly Sales")
+plt.show()
+
